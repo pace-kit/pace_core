@@ -1,0 +1,22 @@
+# These are also playable commands for the interactive console.
+click crate
+click workshop
+click keeper
+choose help
+# Save mid-conversation while carrying the fuse, then replace the running game.
+save
+new
+load
+choose accept
+click stairs
+click panel
+# Save after consuming an item; used hotspots and dialogue history must persist.
+save
+new
+load
+click beacon
+# Endings must also survive a fresh instance.
+save
+new
+load
+quit
