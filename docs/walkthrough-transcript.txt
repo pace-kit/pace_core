@@ -1,0 +1,171 @@
+THE LAST LIGHT / PACE
+Commands: number, click ID, choose ID, look, save, load, new, quit
+
+01 / The Quay
+Night is falling. A boat waits beyond the reef, but the lighthouse is dark. Search the supply crate, then find the keeper.
+Inventory: (empty)
+  1. Search supply crate [click crate]
+  2. Enter workshop [click workshop]
+
+> click crate
+Under a folded oilskin, you find a spare fuse.
+
+01 / The Quay
+Night is falling. A boat waits beyond the reef, but the lighthouse is dark. Search the supply crate, then find the keeper.
+Inventory: Spare fuse
+  1. Enter workshop [click workshop]
+
+> click workshop
+Warm lamplight spills from the workshop.
+
+02 / The Workshop
+The keeper studies a chart of the reef. Above the workbench, a locked stairway leads to the lantern.
+Inventory: Spare fuse
+  1. Return to quay [click quay]
+  2. Talk to the keeper [click keeper]
+  3. Unlock lantern stairs [click stairs]
+
+> click keeper
+The keeper looks up from the chart.
+
+02 / The Workshop
+The keeper studies a chart of the reef. Above the workbench, a locked stairway leads to the lantern.
+Inventory: Spare fuse
+The keeper: A boat is waiting offshore. Will you help me bring her home?
+  1. Tell me how to fix the light. [choose help]
+  2. I'll be back. [choose leave]
+
+> choose help
+Tell me how to fix the light.
+
+02 / The Workshop
+The keeper studies a chart of the reef. Above the workbench, a locked stairway leads to the lantern.
+Inventory: Spare fuse
+The keeper: Take my key. Find the spare fuse in the quay's supply crate and fit it in the lantern panel. Then light the beacon.
+  1. Take the key. I'll get the light working. [choose accept]
+  2. I need a moment. [choose leave]
+
+> save
+Saved checkpoint.
+
+02 / The Workshop
+The keeper studies a chart of the reef. Above the workbench, a locked stairway leads to the lantern.
+Inventory: Spare fuse
+The keeper: Take my key. Find the spare fuse in the quay's supply crate and fit it in the lantern panel. Then light the beacon.
+  1. Take the key. I'll get the light working. [choose accept]
+  2. I need a moment. [choose leave]
+
+> new
+Started a new game.
+
+01 / The Quay
+Night is falling. A boat waits beyond the reef, but the lighthouse is dark. Search the supply crate, then find the keeper.
+Inventory: (empty)
+  1. Search supply crate [click crate]
+  2. Enter workshop [click workshop]
+
+> load
+Loaded checkpoint.
+Verified: room, inventory, flags, dialogue, history and ending match checkpoint.
+
+02 / The Workshop
+The keeper studies a chart of the reef. Above the workbench, a locked stairway leads to the lantern.
+Inventory: Spare fuse
+The keeper: Take my key. Find the spare fuse in the quay's supply crate and fit it in the lantern panel. Then light the beacon.
+  1. Take the key. I'll get the light working. [choose accept]
+  2. I need a moment. [choose leave]
+
+> choose accept
+Take the key. I'll get the light working.
+
+02 / The Workshop
+The keeper studies a chart of the reef. Above the workbench, a locked stairway leads to the lantern.
+Inventory: Spare fuse, Brass key
+  1. Return to quay [click quay]
+  2. Talk to the keeper [click keeper]
+  3. Unlock lantern stairs [click stairs]
+
+> click stairs
+The brass key turns. You climb to the lantern.
+
+03 / The Lantern
+The great lens is still. Fit the spare fuse into the dark control panel, then send a signal across the water.
+Inventory: Spare fuse, Brass key
+  1. Down to workshop [click workshop]
+  2. Fit spare fuse [click panel]
+  3. Light the beacon [click beacon]
+
+> click panel
+The fuse clicks into place. The lens begins to turn.
+
+03 / The Lantern
+The great lens is still. Fit the spare fuse into the dark control panel, then send a signal across the water.
+Inventory: Brass key
+  1. Down to workshop [click workshop]
+  2. Light the beacon [click beacon]
+
+> save
+Saved checkpoint.
+
+03 / The Lantern
+The great lens is still. Fit the spare fuse into the dark control panel, then send a signal across the water.
+Inventory: Brass key
+  1. Down to workshop [click workshop]
+  2. Light the beacon [click beacon]
+
+> new
+Started a new game.
+
+01 / The Quay
+Night is falling. A boat waits beyond the reef, but the lighthouse is dark. Search the supply crate, then find the keeper.
+Inventory: (empty)
+  1. Search supply crate [click crate]
+  2. Enter workshop [click workshop]
+
+> load
+Loaded checkpoint.
+Verified: room, inventory, flags, dialogue, history and ending match checkpoint.
+
+03 / The Lantern
+The great lens is still. Fit the spare fuse into the dark control panel, then send a signal across the water.
+Inventory: Brass key
+  1. Down to workshop [click workshop]
+  2. Light the beacon [click beacon]
+
+> click beacon
+A ribbon of light sweeps the reef.
+
+03 / The Lantern
+The great lens is still. Fit the spare fuse into the dark control panel, then send a signal across the water.
+Inventory: Brass key
+The boat answers with two soft bells. Guided by your light, she slips safely into harbor. The keeper waves from the quay. You brought them home. / THE END
+
+> save
+Saved checkpoint.
+
+03 / The Lantern
+The great lens is still. Fit the spare fuse into the dark control panel, then send a signal across the water.
+Inventory: Brass key
+The boat answers with two soft bells. Guided by your light, she slips safely into harbor. The keeper waves from the quay. You brought them home. / THE END
+
+> new
+Started a new game.
+
+01 / The Quay
+Night is falling. A boat waits beyond the reef, but the lighthouse is dark. Search the supply crate, then find the keeper.
+Inventory: (empty)
+  1. Search supply crate [click crate]
+  2. Enter workshop [click workshop]
+
+> load
+Loaded checkpoint.
+Verified: room, inventory, flags, dialogue, history and ending match checkpoint.
+
+03 / The Lantern
+The great lens is still. Fit the spare fuse into the dark control panel, then send a signal across the water.
+Inventory: Brass key
+The boat answers with two soft bells. Guided by your light, she slips safely into harbor. The keeper waves from the quay. You brought them home. / THE END
+
+> quit
+
+WALKTHROUGH PASS: safe_harbor reached and restored from disk.

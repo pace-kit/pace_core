@@ -1,0 +1,460 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scene",
+  "type": "object",
+  "properties": {
+    "dialogues": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Dialogue"
+      }
+    },
+    "endings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Ending"
+      }
+    },
+    "flags": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "format_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "game_id": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Item"
+      }
+    },
+    "rooms": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Room"
+      }
+    },
+    "start_room": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "format_version",
+    "game_id",
+    "title",
+    "start_room",
+    "rooms",
+    "endings"
+  ],
+  "$defs": {
+    "Choice": {
+      "type": "object",
+      "properties": {
+        "effects": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Effect"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "next": {
+          "description": "null (or omitted) closes dialogue; otherwise a node in this dialogue.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null
+        },
+        "once": {
+          "type": "boolean",
+          "default": false
+        },
+        "requires": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Condition"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text"
+      ]
+    },
+    "Condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "item": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "const": "has_item"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "item"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "flag": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "const": "flag"
+            },
+            "value": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "flag",
+            "value"
+          ]
+        }
+      ]
+    },
+    "Dialogue": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DialogueNode"
+          }
+        },
+        "start": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "start",
+        "nodes"
+      ]
+    },
+    "DialogueNode": {
+      "type": "object",
+      "properties": {
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Choice"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "speaker": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "speaker",
+        "text",
+        "choices"
+      ]
+    },
+    "Effect": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "item": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "const": "give_item"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "item"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "item": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "const": "remove_item"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "item"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "flag": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "const": "set_flag"
+            },
+            "value": {
+              "type": "boolean"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "flag",
+            "value"
+          ]
+        }
+      ]
+    },
+    "Ending": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text"
+      ]
+    },
+    "Hotspot": {
+      "type": "object",
+      "properties": {
+        "blocked_text": {
+          "type": "string"
+        },
+        "effects": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Effect"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "once": {
+          "type": "boolean",
+          "default": false
+        },
+        "outcome": {
+          "$ref": "#/$defs/Outcome",
+          "default": {
+            "type": "stay"
+          }
+        },
+        "rect": {
+          "description": "Normalized top-left x, y, width, height in the room's viewport.",
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "float"
+          },
+          "maxItems": 4,
+          "minItems": 4
+        },
+        "requires": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Condition"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "rect",
+        "blocked_text",
+        "text"
+      ]
+    },
+    "Item": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "description"
+      ]
+    },
+    "Outcome": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "stay"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "room": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "const": "room"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "room"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "dialogue": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "const": "dialogue"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "dialogue"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "ending": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "const": "end"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "ending"
+          ]
+        }
+      ]
+    },
+    "Room": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "uint8",
+            "maximum": 255,
+            "minimum": 0
+          },
+          "maxItems": 3,
+          "minItems": 3
+        },
+        "description": {
+          "type": "string"
+        },
+        "hotspots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Hotspot"
+          }
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "description",
+        "color",
+        "hotspots"
+      ]
+    }
+  }
+}
