@@ -15,10 +15,14 @@ const PANEL: Color = Color::srgb(0.1, 0.15, 0.18);
 struct Screen;
 #[derive(Resource)]
 struct Status(String);
+#[derive(Resource)]
+struct SavePath(std::path::PathBuf);
 #[derive(Message, Clone)]
 enum PlayerInput {
     Act(AdventureCommand),
     Restart,
+    Save,
+    Load,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -28,6 +32,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
     let game = Game::new(Scene::from_json(&json)?);
     let title = game.scene().title.clone();
+    let save_path = std::env::args()
+        .nth(2)
+        .unwrap_or_else(|| format!("{}.save.json", game.scene().game_id));
     App::new()
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
@@ -44,6 +51,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }))
         .insert_resource(ClearColor(INK))
         .insert_resource(game)
+        .insert_resource(SavePath(save_path.into()))
         .insert_resource(Status(
             "Click a labeled hotspot, or press its number. Bring the boat home.".into(),
         ))
@@ -67,6 +75,14 @@ fn keyboard(
     game: Res<Game>,
     mut input: MessageWriter<PlayerInput>,
 ) {
+    if keys.just_pressed(KeyCode::F5) {
+        input.write(PlayerInput::Save);
+        return;
+    }
+    if keys.just_pressed(KeyCode::F9) {
+        input.write(PlayerInput::Load);
+        return;
+    }
     if keys.just_pressed(KeyCode::KeyN) {
         input.write(PlayerInput::Restart);
         return;
@@ -110,6 +126,7 @@ fn player_input(
     mut actions: MessageWriter<AdventureCommand>,
     mut game: ResMut<Game>,
     mut status: ResMut<Status>,
+    path: Res<SavePath>,
 ) {
     // At most one UI action per frame, avoiding stale double-click/keyboard actions.
     if let Some(input) = input.read().next() {
@@ -120,6 +137,18 @@ fn player_input(
             PlayerInput::Restart => {
                 *game = Game::new(game.scene().clone().validate().expect("already validated"));
                 status.0 = "A new evening on the quay. Find a way to light the beacon.".into();
+            }
+            PlayerInput::Save => {
+                status.0 = match game.save_file(&path.0) {
+                    Ok(()) => format!("Saved to {}", path.0.display()),
+                    Err(e) => format!("Save failed: {e}"),
+                };
+            }
+            PlayerInput::Load => {
+                status.0 = match game.load_file(&path.0) {
+                    Ok(()) => format!("Loaded {}", path.0.display()),
+                    Err(e) => format!("Load failed: {e}"),
+                };
             }
         }
     }
@@ -205,7 +234,11 @@ fn redraw(
                     p.spawn(label("PACE / A THREE-ROOM ADVENTURE", 13.0, GOLD));
                     p.spawn(label(&game.scene().title, 32.0, PAPER));
                 });
-                button(header, "New game [N]", PlayerInput::Restart, button_node());
+                header.spawn(Node { column_gap: px(8), ..default() }).with_children(|p| {
+                    button(p, "Save [F5]", PlayerInput::Save, button_node());
+                    button(p, "Load [F9]", PlayerInput::Load, button_node());
+                    button(p, "New [N]", PlayerInput::Restart, button_node());
+                });
             });
         root.spawn(label(&room.name, 24.0, GOLD));
         root.spawn((label(&room.description, 17.0, PAPER), Node { min_height: px(48), ..default() }));
